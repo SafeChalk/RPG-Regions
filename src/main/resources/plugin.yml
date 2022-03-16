@@ -1,0 +1,6 @@
+name: RPG-Regions
+version: '${project.version}'
+main: me.safechalk.rpgregions.RPGRegions
+api-version: 1.13
+prefix: rpgregions
+authors: [ SafeChalk ]
