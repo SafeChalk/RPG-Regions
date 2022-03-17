@@ -5,8 +5,10 @@ import me.safechalk.rpgregions.messages.MessageManager;
 
 public class Region {
 
-    private String regionName, regionDescription, rawName;
-    private Bound bound;
+    public static String regionName;
+    public static String regionDescription;
+    public String rawName;
+    public Bound bound;
 
     public Region(String regionName, String regionDescription, Bound bound) {
         this.regionName = regionName;

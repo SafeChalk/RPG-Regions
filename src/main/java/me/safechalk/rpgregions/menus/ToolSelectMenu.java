@@ -1,7 +1,10 @@
 package me.safechalk.rpgregions.menus;
 
 import me.safechalk.rpgregions.RPGRegions;
+import me.safechalk.rpgregions.components.Bound;
+import me.safechalk.rpgregions.managers.RegionManager;
 import me.safechalk.rpgregions.messages.MessageManager;
+import me.safechalk.rpgregions.region.Region;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -10,26 +13,42 @@ import org.mineacademy.fo.menu.button.Button;
 import org.mineacademy.fo.menu.model.ItemCreator;
 import org.mineacademy.fo.remain.CompMaterial;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class ToolSelectMenu extends Menu {
 
     private final Button regionTool;
+    private RegionManager regionManager;
 
-    public static ItemStack blueBlock;
+    private static final Map<UUID, Bound> regionSetup = new HashMap<>();
+
+    public ItemStack blueBlock;
 
     public ToolSelectMenu(RPGRegions rpgRegions) {
 
-        setTitle("RPG Regions");
+        setTitle("&6RPG Regions");
         setSize(9 * 3);
 
         regionTool = new Button() {
+
 
             @Override
             public void onClickedInMenu(Player player, Menu menu, ClickType click) {
                 if (click.isLeftClick()) {
                     blueBlock = ItemCreator.of(CompMaterial.BLUE_CONCRETE, "&eCreate Town").build().make();
-                    MessageManager.infoPlayer(player, "You got a blue block");
-
-                    player.getInventory().addItem(blueBlock);
+                    if (!player.getInventory().contains(blueBlock)) {
+                        MessageManager.infoPlayer(player, "You got a blue block");
+                        player.getInventory().addItem(blueBlock);
+                        if (!regionSetup.containsKey(player.getUniqueId())) {
+                            //Player wants to go in setup mode
+                            regionSetup.put(player.getUniqueId(), new Bound());
+                            MessageManager.infoPlayer(player, "Player is now in Setup mode!");
+                        } else {
+                            MessageManager.errorPlayer(player, "You already have that item in your inventory!");
+                        }
+                    }
                 }
             }
 
@@ -68,7 +87,11 @@ public class ToolSelectMenu extends Menu {
         }
 
 
-    public static ItemStack getBlueBlock() {
+    public ItemStack getBlueBlock() {
         return blueBlock;
+    }
+
+    public static Map<UUID, Bound> getRegionSetup() {
+        return regionSetup;
     }
 }
