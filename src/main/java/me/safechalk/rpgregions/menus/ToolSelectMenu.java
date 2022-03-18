@@ -1,10 +1,9 @@
 package me.safechalk.rpgregions.menus;
 
-import me.safechalk.rpgregions.RPGRegions;
+import lombok.Getter;
 import me.safechalk.rpgregions.components.Bound;
 import me.safechalk.rpgregions.managers.RegionManager;
 import me.safechalk.rpgregions.messages.MessageManager;
-import me.safechalk.rpgregions.region.Region;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +18,9 @@ import java.util.UUID;
 
 public class ToolSelectMenu extends Menu {
 
+    @Getter
+    public static final ToolSelectMenu instance = new ToolSelectMenu();
+
     private final Button regionTool;
     private RegionManager regionManager;
 
@@ -26,7 +28,7 @@ public class ToolSelectMenu extends Menu {
 
     public ItemStack blueBlock;
 
-    public ToolSelectMenu(RPGRegions rpgRegions) {
+    public ToolSelectMenu() {
 
         setTitle("&6RPG Regions");
         setSize(9 * 3);
@@ -45,9 +47,9 @@ public class ToolSelectMenu extends Menu {
                             //Player wants to go in setup mode
                             regionSetup.put(player.getUniqueId(), new Bound());
                             MessageManager.infoPlayer(player, "Player is now in Setup mode!");
-                        } else {
-                            MessageManager.errorPlayer(player, "You already have that item in your inventory!");
                         }
+                    } else {
+                        MessageManager.errorPlayer(player, "You already have that item in your inventory!");
                     }
                 }
             }
@@ -64,27 +66,27 @@ public class ToolSelectMenu extends Menu {
         };
     }
 
-        @Override
-        public ItemStack getItemAt(int slot) {
-            if (slot == 10) {
-                return regionTool.getItem();
-            }
-
-
-            if (slot >= 0 && slot <= 3)
-                return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
-            if (slot >= 5 && slot <= 8)
-                return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
-            if (slot >= 18 && slot <= 21)
-                return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
-            if (slot >= 23 && slot <= 26)
-                return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
-            if (slot == 9)
-                return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
-            if (slot == 17)
-                return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
-            return null;
+    @Override
+    public ItemStack getItemAt(int slot) {
+        if (slot == 10) {
+            return regionTool.getItem();
         }
+
+
+        if (slot >= 0 && slot <= 3)
+            return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
+        if (slot >= 5 && slot <= 8)
+            return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
+        if (slot >= 18 && slot <= 21)
+            return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
+        if (slot >= 23 && slot <= 26)
+            return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
+        if (slot == 9)
+            return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
+        if (slot == 17)
+            return ItemCreator.of(CompMaterial.ORANGE_STAINED_GLASS_PANE, "").build().make();
+        return null;
+    }
 
 
     public ItemStack getBlueBlock() {

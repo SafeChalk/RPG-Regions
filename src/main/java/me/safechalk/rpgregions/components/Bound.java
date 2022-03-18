@@ -21,6 +21,7 @@ public class Bound {
     public void assignCorrectBounds() {
         int location1X = location1.getBlockX(), location1Y = location1.getBlockY(), location1Z = location1.getBlockZ();
         int location2X = location2.getBlockX(), location2Y = location2.getBlockY(), location2Z = location2.getBlockZ();
+
         if (location1X > location2X) {
             int tempX = location1X;
             location1X = location2X;

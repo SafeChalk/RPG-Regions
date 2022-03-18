@@ -5,10 +5,6 @@ import me.safechalk.rpgregions.listeners.EventListener;
 import me.safechalk.rpgregions.managers.RegionManager;
 import me.safechalk.rpgregions.menus.ToolSelectMenu;
 import org.mineacademy.fo.plugin.SimplePlugin;
-import org.mineacademy.fo.settings.YamlStaticConfig;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class RPGRegions extends SimplePlugin {
 
@@ -20,9 +16,9 @@ public class RPGRegions extends SimplePlugin {
     protected void onPluginStart() {
         registerCommand(new RegionCommand());
 
-        registerEvents(new EventListener(this));
+        registerEvents(new EventListener());
 
-        toolSelectMenu = new ToolSelectMenu(this);
+        toolSelectMenu = new ToolSelectMenu();
 
         regionManager = new RegionManager();
 
